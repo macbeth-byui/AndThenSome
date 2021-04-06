@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Budget Tool - AndThenSome Software</title>
+<style>
+    input, select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type=submit] {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    div {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>Transaction Entry</a></h1>
+    <div>
+    {% if id is not None %}
+    <form action="{% url 'transact' id %}" method="post">
+    {% else %}
+    <form action="{% url 'transact' %}" method="post">
+    {% endif %}
+        {% csrf_token %}
+        <label for="month">Month:</label>
+        <select name="month" id="month" required>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <label for="year">Year:</label>
+        <input type="number" required step="0.01" id="year" name="year" value="{{transact.t_year}}">
+        <label for="description">Description:</label>
+        <input type="text" required id="description" name="description" value="{{transact.t_description}}">
+        <label for="amount">Amount:</label>
+        <input type="number" required step="0.01" id="amount" name="amount" value="{{transact.t_amount|floatformat:2}}">
+        <label for="category">Category:</label>
+        <select name="category" id="category" required>
+            {% for category in categories %}
+                <option value="{{category.id}}">{{category.c_name}}</option>
+            {% endfor %}
+        </select>
+        <label for="cleared">Cleared:</label>
+        <input type="checkbox" id="cleared" name="cleared" value="true">
+        <input type="submit" name="action" value="Submit">
+        {% if id is not None %}
+        <input type="submit" name="action" value="Delete" formnovalidate>
+        {% endif %}
+        <input type="submit" name="action" value="Cancel" formnovalidate>
+    </form>
+    </div>
+    <strong>{{error}}</strong>
+    <script>
+        document.getElementById("month").value = {{transact.t_month}};
+        {% if transact.t_category.id != "" %}
+        document.getElementById("category").value = {{transact.t_category.id}};
+        {% endif %}
+        {% if transat.t_cleared is not None %}
+        document.getElementById("cleared").checked = {{transact.t_cleared}};
+        {% endif %}
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Budget Tool - AndThenSome Software</title>
+<style>
+    table, th, td {
+      border: 1px solid black;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>Budget for <a href="{% url 'month' %}">{{month}} {{year}}</a></h1>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Avg Budget</th>                
+            <th>Plan Budget</th>
+            <th>Actual</th>
+            <th>Difference</th>
+            <th>Notes</th>
+        </tr>
+        <tr>
+            <td><a href="{% url 'month' %}">Carryover Last Month</a></td>
+            <td style="background-color: bisque;"></td>
+            <td style="text-align:right">$ {{starting|floatformat:2}}</td>
+            <td style="text-align:right">$ {{starting|floatformat:2}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% for category in categories %}
+            <tr>
+                <td><a href="{% url 'category' category.id %}">{{category.c_name}}</a></td>
+                <td style="background-color: bisque; text-align:right"">$ {{category.c_monthly|floatformat:2}}</td>
+                <td style="text-align:right">$ {{category.c_planned|floatformat:2}}</td>
+                <td style="text-align:right">$ {{category.actual|floatformat:2}}</td>
+                {% if category.difference < 0 %}
+                    <td style="color:red; font-weight: bold; text-align:right"">$ {{category.difference|floatformat:2}}</td>
+                {% else %}
+                    <td style="color:green; font-weight: bold; text-align:right"">$ {{category.difference|floatformat:2}}</td>
+                {% endif %}
+                <td>{{category.c_notes}}</td>
+            </tr>
+        {% endfor %}
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            {% if total_monthly < 0 %}
+                <td style="color:red; background-color: bisque; text-align:right"">$ {{total_monthly|floatformat:2}}</td>
+            {% else %}
+                <td style="color:green; background-color: bisque; text-align:right">$ {{total_monthly|floatformat:2}}</td>
+            {% endif %}
+            {% if total_planned < 0 %}
+                <td style="color:red; text-align:right">$ {{total_planned|floatformat:2}}</td>
+            {% else %}
+                <td style="color:green; text-align:right">$ {{total_planned|floatformat:2}}</td>
+            {% endif %}
+            {% if total_actual < 0 %}
+                <td style="color:red; text-align:right">$ {{total_actual|floatformat:2}}</td>
+            {% else %}
+                <td style="color:green; text-align:right">$ {{total_actual|floatformat:2}}</td>
+            {% endif %}            
+            {% if total_difference < 0 %}
+                <td style="color:red; text-align:right">$ {{total_difference|floatformat:2}}</td>
+            {% else %}
+                <td style="color:green; text-align:right">$ {{total_difference|floatformat:2}}</td>
+            {% endif %}                        
+            <td></td>
+        </tr>
+    </table>
+    <br><a href="{% url 'category' %}">Add New Category</a>
+    <h1>Transactions</h1>
+    <a href="{% url 'transact' %}">Add New Transaction</a><br><br>
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <label for="month">Month:</label>
+        <select name="month" id="month" required>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <label for="year">Year:</label>
+        <input type="number" required id="year" name="year" value="{{year_display}}">
+        <input type="submit" name="action" value="Filter">
+        <input type="submit" name="action" value="Current" formnovalidate>
+    </form>    
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Cleared</th>
+        </tr>
+        {% for transaction in transactions %}
+            <tr>
+                <td><a href="{% url 'transact' transaction.id %}">{{transaction.t_month}} - {{transaction.t_year}}</a></td>
+                <td>{{transaction.t_category.c_name}}</td>
+                <td><a href="{% url 'transact' transaction.id %}">{{transaction.t_description}}</a></td>
+                <td style="text-align:right">$ {{transaction.t_amount|floatformat:2}}</td>
+                {% if transaction.t_cleared %}
+                    <td style="color:green">{{transaction.t_cleared}}</td>
+                {% else %}
+                    <td style="color:red">{{transaction.t_cleared}}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        document.getElementById("month").value = {{month_display}};
+    </script>
+</body>
+</html>
