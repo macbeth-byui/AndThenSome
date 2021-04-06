@@ -80,7 +80,7 @@ def index(request):
     values["month_display"] = month_display
     values["year_display"] = year_display
 
-    return render(request,"budget\index.html", values)
+    return render(request,"budget/index.html", values)
 
 def category(request, c_id=None):
     if c_id is not None:
