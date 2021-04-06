@@ -1,5 +1,5 @@
 venv
-secret.env
+.env
 
 # Django #
 *.log
