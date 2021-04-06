@@ -13,6 +13,7 @@
     <table>
         <tr>
             <th>Category</th>
+            <th>Type</th>
             <th>Avg Budget</th>                
             <th>Plan Budget</th>
             <th>Actual</th>
@@ -21,6 +22,7 @@
         </tr>
         <tr>
             <td><a href="{% url 'month' %}">Carryover Last Month</a></td>
+            <td></td>
             <td style="background-color: bisque;"></td>
             <td style="text-align:right">$ {{starting|floatformat:2}}</td>
             <td style="text-align:right">$ {{starting|floatformat:2}}</td>
@@ -30,6 +32,7 @@
         {% for category in categories %}
             <tr>
                 <td><a href="{% url 'category' category.id %}">{{category.c_name}}</a></td>
+                <td>{{category.c_type}}</td>
                 <td style="background-color: bisque; text-align:right"">$ {{category.c_monthly|floatformat:2}}</td>
                 <td style="text-align:right">$ {{category.c_planned|floatformat:2}}</td>
                 <td style="text-align:right">$ {{category.actual|floatformat:2}}</td>
@@ -43,6 +46,7 @@
         {% endfor %}
         <tr style="font-weight: bold">
             <td>Total</td>
+            <td></td>
             {% if total_monthly < 0 %}
                 <td style="color:red; background-color: bisque; text-align:right"">$ {{total_monthly|floatformat:2}}</td>
             {% else %}
