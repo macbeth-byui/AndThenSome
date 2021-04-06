@@ -4,6 +4,7 @@ from budget.models import Categories
 from budget.models import Transactions
 from budget.models import Budget
 from django.db.models import Sum
+from django.contrib.auth import authenticate, login, logout
 
 from datetime import datetime
 
@@ -11,8 +12,30 @@ def convert_month(month):
     months = ["January","February","March","April","May","June","July","August","September","October","Novemeber","December"]
     return months[month-1]
 
-# Create your views here.
-def index(request):
+def login_app(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("home")
+        else:
+            values = {'error': "Invalid Username or Password"}
+            return render(request, 'budget/login.html', values)
+    else:
+        values = {}
+        return render(request, 'budget/login.html', values)    
+
+
+def home(request):
+    if request.method == "POST":
+        if request.POST["action"] == "Logoff":
+            logout(request)
+            return redirect(login_app)
+
+    if not request.user.is_authenticated:
+        return redirect("login_app")
     try:
         budget = Budget.objects.get(id=1)
     except:
@@ -80,9 +103,11 @@ def index(request):
     values["month_display"] = month_display
     values["year_display"] = year_display
 
-    return render(request,"budget/index.html", values)
+    return render(request,"budget/home.html", values)
 
 def category(request, c_id=None):
+    if not request.user.is_authenticated:
+        return redirect("login_app")
     if c_id is not None:
         category = Categories.objects.get(id=c_id)
     else:
@@ -98,13 +123,15 @@ def category(request, c_id=None):
             category.save()
         elif request.POST["action"] == "Delete":
             category.delete()
-        return redirect("index")
+        return redirect("home")
     else:
         values = {'category': category, 'id': c_id}
         return render(request, 'budget/category.html', values)
     
 
 def transact(request, t_id=None):
+    if not request.user.is_authenticated:
+        return redirect("login_app")    
     if t_id is not None:
         transact = Transactions.objects.get(id=t_id)
     else:
@@ -127,7 +154,7 @@ def transact(request, t_id=None):
             transact.save()
         elif request.POST["action"] == "Delete":
             transact.delete()
-        return redirect("index")
+        return redirect("home")
     else:
         categories = Categories.objects.all().order_by("c_name")
         budget = Budget.objects.get(id=1)
@@ -137,6 +164,8 @@ def transact(request, t_id=None):
         return render(request, 'budget/transact.html', values)
 
 def month(request):
+    if not request.user.is_authenticated:
+        return redirect("login_app")    
     budget = Budget.objects.get(id=1)
     if request.method == 'POST':
         if request.POST["action"] == "Submit":
@@ -144,10 +173,8 @@ def month(request):
             budget.b_year = int(request.POST["year"])
             budget.b_starting = float(request.POST["starting"])
             budget.save()
-        return redirect("index")
+        return redirect("home")
     else:
         values = {'budget': budget}
         return render(request, 'budget/month.html', values)
 
-def transact_history(request):
-    pass

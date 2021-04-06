@@ -69,7 +69,7 @@
     <br><a href="{% url 'category' %}">Add New Category</a>
     <h1>Transactions</h1>
     <a href="{% url 'transact' %}">Add New Transaction</a><br><br>
-    <form action="{% url 'index' %}" method="post">
+    <form action="{% url 'login_app' %}" method="post">
         {% csrf_token %}
         <label for="month">Month:</label>
         <select name="month" id="month" required>
@@ -113,6 +113,11 @@
             </tr>
         {% endfor %}
     </table>
+    <br>
+    <form action="{% url "home" %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" name="action" value="Logoff">
+    </form>
 
     <script>
         document.getElementById("month").value = {{month_display}};
