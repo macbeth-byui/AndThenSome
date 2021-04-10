@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <h1>Budget for <a href="{% url 'month' %}">{{month}} {{year}}</a></h1>
+    <h2>Budget for <a href="{% url 'month' %}">{{month}} {{year}}</a></h1>
+    <br>
     <table class="table table-bordered">
         <tr>
             <th>Category</th>
@@ -69,11 +70,13 @@
             <td></td>
         </tr>
     </table>
-    <br><a href="{% url 'category' %}">Add New Category</a>
-    <h1>Transactions</h1>
+    <a href="{% url 'category' %}">Add New Category</a>
+    <br>
+    <h2>Transactions</h2>
     <a href="{% url 'transact' %}">Add New Transaction</a><br><br>
-    <form action="{% url 'login_app' %}" method="post">
+    <form action="{% url 'home' %}" method="post">
         {% csrf_token %}
+        <div class="mb-3 row">
         <label for="month"class="form-label">Month:</label>
         <select name="month" class="form-control" id="month" required>
             <option value="1">January</option>
@@ -93,7 +96,9 @@
         <input type="number" class="form-control" required id="year" name="year" value="{{year_display}}">
         <input type="submit" class="btn btn-primary" name="action" value="Filter">
         <input type="submit" class="btn btn-primary" name="action" value="Current" formnovalidate>
-    </form>    
+        </div>
+    </form>  
+    <br>  
     <table class="table table-bordered">
         <tr>
             <th>Date</th>

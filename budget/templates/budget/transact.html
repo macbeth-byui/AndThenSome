@@ -31,20 +31,20 @@
             <option value="11">November</option>
             <option value="12">December</option>
         </select>
-        <label for="year" class="form-label">Year:</label>
+        <br><label for="year" class="form-label">Year:</label>
         <input type="number" class="form-control" required step="0.01" id="year" name="year" value="{{transact.t_year}}">
-        <label for="description" class="form-label">Description:</label>
+        <br><label for="description" class="form-label">Description:</label>
         <input type="text" class="form-control" required id="description" name="description" value="{{transact.t_description}}">
-        <label for="amount" class="form-label">Amount:</label>
+        <br><label for="amount" class="form-label">Amount:</label>
         <input type="number" class="form-control" required step="0.01" id="amount" name="amount" value="{{transact.t_amount|floatformat:2}}">
-        <label for="category" class="form-label">Category:</label>
+        <br><label for="category" class="form-label">Category:</label>
         <select name="category" class="form-control" id="category" required>
             {% for category in categories %}
                 <option value="{{category.id}}">{{category.c_name}}</option>
             {% endfor %}
         </select>
-        <label for="cleared" class="form-label">Cleared:</label>
-        <input type="checkbox" class="form-control" id="cleared" name="cleared" value="true">
+        <br><label for="cleared" class="form-label">Cleared:</label>
+        <br><input type="checkbox" class="form-control" id="cleared" name="cleared" value="true">
         <input type="submit" class="btn btn-primary" name="action" value="Submit">
         {% if id is not None %}
         <input type="submit" class="btn btn-primary" name="action" value="Delete" formnovalidate>
