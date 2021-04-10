@@ -13,11 +13,13 @@
     <div>
     <form action="{% url 'login_app' %}" method="post">
         {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" required id="username" name="username" required>
-        <label for="starting">Password</label>
-        <input type="password" id="password" name="password" required>
-        <input type="submit" name="action" value="Login">
+        <div class="mb-3">
+          <label for="username">Username:</label>
+          <input type="text" required id="username" name="username" required>
+          <label for="starting">Password</label>
+          <input type="password" id="password" name="password" required>
+          <input type="submit" name="action" value="Login">
+        </div>
     </form>
     </div>
     <strong>{{error}}</strong>
