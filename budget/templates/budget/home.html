@@ -12,7 +12,7 @@
 
 <body>
     <h1>Budget for <a href="{% url 'month' %}">{{month}} {{year}}</a></h1>
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th>Category</th>
             <th>Type</th>
@@ -97,7 +97,7 @@
         <input type="submit" name="action" value="Filter">
         <input type="submit" name="action" value="Current" formnovalidate>
     </form>    
-    <table>
+    <table class="table table-bordered">
         <tr>
             <th>Date</th>
             <th>Category</th>
