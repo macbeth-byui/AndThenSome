@@ -18,24 +18,24 @@
     <form action="{% url 'category' %}" method="post">
     {% endif %}
         {% csrf_token %}
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{category.c_name}}">
-        <label for="type">Type:</label>
-        <select name="type" id="type" required>
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{category.c_name}}">
+        <label for="type" class="form-label">Type:</label>
+        <select name="type" class="form-control" id="type" required>
             <option value="1">Income</option>
             <option value="2">Expense</option>
         </select>
-        <label for="monthly">Avg Monthly Amount:</label>
-        <input type="number" step="0.01" id="monthly" name="monthly" value="{{category.c_monthly|floatformat:2}}">
-        <label for="planned">Current Month Plan:</label>
-        <input type="number" step="0.01" id="planned" name="planned" value="{{category.c_planned|floatformat:2}}">
-        <label for="notes">Notes:</label>
-        <input type="text" id="notes" name="notes" value="{{category.c_notes}}">
-        <input type="submit" name="action" value="Submit">
+        <label for="monthly" class="form-label">Avg Monthly Amount:</label>
+        <input type="number" class="form-control" step="0.01" id="monthly" name="monthly" value="{{category.c_monthly|floatformat:2}}">
+        <label for="planned" class="form-label">Current Month Plan:</label>
+        <input type="number" class="form-control" step="0.01" id="planned" name="planned" value="{{category.c_planned|floatformat:2}}">
+        <label for="notes" class="form-label">Notes:</label>
+        <input type="text" class="form-control" id="notes" name="notes" value="{{category.c_notes}}">
+        <input type="submit" class="btn btn-primary" name="action" value="Submit">
         {% if id is not None %}
-        <input type="submit" name="action" value="Delete" formnovalidate>
+        <input type="submit" class="btn btn-primary" name="action" value="Delete" formnovalidate>
         {% endif %}
-        <input type="submit" name="action" value="Cancel" formnovalidate>
+        <input type="submit" class="btn btn-primary" name="action" value="Cancel" formnovalidate>
     </form>
     </div>
     <strong>{{error}}</strong>

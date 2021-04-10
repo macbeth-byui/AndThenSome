@@ -77,8 +77,8 @@
     <a href="{% url 'transact' %}">Add New Transaction</a><br><br>
     <form action="{% url 'login_app' %}" method="post">
         {% csrf_token %}
-        <label for="month">Month:</label>
-        <select name="month" id="month" required>
+        <label for="month"class="form-label">Month:</label>
+        <select name="month" class="form-control" id="month" required>
             <option value="1">January</option>
             <option value="2">February</option>
             <option value="3">March</option>
@@ -92,10 +92,10 @@
             <option value="11">November</option>
             <option value="12">December</option>
         </select>
-        <label for="year">Year:</label>
-        <input type="number" required id="year" name="year" value="{{year_display}}">
-        <input type="submit" name="action" value="Filter">
-        <input type="submit" name="action" value="Current" formnovalidate>
+        <label for="year" class="form-label">Year:</label>
+        <input type="number" class="form-control" required id="year" name="year" value="{{year_display}}">
+        <input type="submit" class="btn btn-primary" name="action" value="Filter">
+        <input type="submit" class="btn btn-primary" name="action" value="Current" formnovalidate>
     </form>    
     <table class="table table-bordered">
         <tr>
@@ -122,7 +122,7 @@
     <br>
     <form action="{% url "home" %}" method="POST">
         {% csrf_token %}
-        <input type="submit" name="action" value="Logoff">
+        <input type="submit" class="btn btn-primary" name="action" value="Logoff">
     </form>
 
     <script>
