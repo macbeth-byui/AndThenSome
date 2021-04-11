@@ -3,8 +3,8 @@ from django.db import models
 class Categories(models.Model):
 
     class Type(models.IntegerChoices):
-        INCOME = 1
-        EXPENSE = 2
+        INCOME = 1, "Income"
+        EXPENSE = 2, "Expense"
 
     c_name = models.CharField(max_length=30)
     c_type = models.IntegerField(choices=Type.choices)
