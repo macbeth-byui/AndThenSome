@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>Budget Tool - AndThenSome Software</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'budget/style.css' %}">
@@ -20,18 +20,18 @@
         {% csrf_token %}
         <label for="name" class="form-label">Name:</label>
         <input type="text" class="form-control" id="name" name="name" value="{{category.c_name}}">
-        <br><label for="type" class="form-label">Type:</label>
+        <label for="type" class="form-label">Type:</label>
         <select name="type" class="form-control" id="type" required>
             <option value="1">Income</option>
             <option value="2">Expense</option>
         </select>
-        <br><label for="monthly" class="form-label">Avg Monthly Amount:</label>
+        <label for="monthly" class="form-label">Avg Monthly Amount:</label>
         <input type="number" class="form-control" step="0.01" id="monthly" name="monthly" value="{{category.c_monthly|floatformat:2}}">
-        <br><label for="planned" class="form-label">Current Month Plan:</label>
+        <label for="planned" class="form-label">Current Month Plan:</label>
         <input type="number" class="form-control" step="0.01" id="planned" name="planned" value="{{category.c_planned|floatformat:2}}">
-        <br><label for="notes" class="form-label">Notes:</label>
+        <label for="notes" class="form-label">Notes:</label>
         <input type="text" class="form-control" id="notes" name="notes" value="{{category.c_notes}}">
-        <br><input type="submit" class="btn btn-primary" name="action" value="Submit">
+        <input type="submit" class="btn btn-primary" name="action" value="Submit">
         {% if id is not None %}
         <input type="submit" class="btn btn-primary" name="action" value="Delete" formnovalidate>
         {% endif %}

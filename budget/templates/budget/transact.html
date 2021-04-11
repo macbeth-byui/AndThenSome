@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>Budget Tool - AndThenSome Software</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'budget/style.css' %}">
@@ -33,21 +33,22 @@
             <option value="11">November</option>
             <option value="12">December</option>
         </select>
-        <br><label for="year" class="form-label">Year:</label>
+        <label for="year" class="form-label">Year:</label>
         <input type="number" class="form-control" required step="0.01" id="year" name="year" value="{{transact.t_year}}">
-        <br><label for="description" class="form-label">Description:</label>
+        <label for="description" class="form-label">Description:</label>
         <input type="text" class="form-control" required id="description" name="description" value="{{transact.t_description}}">
-        <br><label for="amount" class="form-label">Amount:</label>
+        <label for="amount" class="form-label">Amount:</label>
         <input type="number" class="form-control" required step="0.01" id="amount" name="amount" value="{{transact.t_amount|floatformat:2}}">
-        <br><label for="category" class="form-label">Category:</label>
+        <label for="category" class="form-label">Category:</label>
         <select name="category" class="form-control" id="category" required>
             {% for category in categories %}
                 <option value="{{category.id}}">{{category.c_name}}</option>
             {% endfor %}
         </select>
-        <br><label for="cleared" class="form-label">Cleared:</label>
-        <br><input type="checkbox" class="form-control" id="cleared" name="cleared" value="true">
+        <label for="cleared" class="form-label">Cleared:</label>
+        <input type="checkbox" class="form-control" id="cleared" name="cleared" value="true">
         <input type="submit" class="btn btn-primary" name="action" value="Submit">
+        <input type="submit" class="btn btn-primary" name="action" value="Submit & Add Another">
         {% if id is not None %}
         <input type="submit" class="btn btn-primary" name="action" value="Delete" formnovalidate>
         {% endif %}

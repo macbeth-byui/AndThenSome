@@ -138,7 +138,7 @@ def transact(request, t_id=None):
         transact = Transactions()
 
     if request.method == 'POST':
-        if request.POST["action"] == "Submit":
+        if request.POST["action"] == "Submit" or request.POST["action"] == "Submit & Add Another":
             transact.t_month = int(request.POST["month"])
             transact.t_year = int(request.POST["year"])
             transact.t_description = request.POST["description"]
@@ -154,7 +154,10 @@ def transact(request, t_id=None):
             transact.save()
         elif request.POST["action"] == "Delete":
             transact.delete()
-        return redirect("home")
+        if request.POST["action"] == "Submit":
+            return redirect("home")
+        else:
+            return redirect("transact")
     else:
         categories = Categories.objects.all().order_by("c_name")
         budget = Budget.objects.get(id=1)

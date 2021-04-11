@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>Budget Tool - AndThenSome Software</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'budget/style.css' %}">
@@ -16,9 +16,9 @@
         {% csrf_token %}
           <label for="username" class="form-label">Username:</label>
           <input type="text"  class="form-control" id="username" name="username" required>
-          <br><label for="starting" class="form-label">Password:</label>
+          <label for="starting" class="form-label">Password:</label>
           <input type="password"  class="form-control" id="password" name="password" required>
-          <br><input type="submit"  class="btn btn-primary" name="action" value="Login">
+          <input type="submit"  class="btn btn-primary" name="action" value="Login">
         </div>
     </form>
     </div>

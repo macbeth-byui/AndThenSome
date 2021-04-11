@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>Budget Tool - AndThenSome Software</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'budget/style.css' %}">
@@ -12,6 +12,8 @@
 <body>
     <h2>Budget for <a href="{% url 'month' %}">{{month}} {{year}}</a></h1>
     <br>
+    <a href="{% url 'transact' %}">Add New Transaction</a><br>
+    <a href="{% url 'category' %}">Add New Category</a><br>
     <table class="table table-bordered">
         <tr>
             <th>Category</th>
@@ -72,10 +74,8 @@
             <td></td>
         </tr>
     </table>
-    <a href="{% url 'category' %}">Add New Category</a>
     <br>
     <h2>Transactions</h1>
-    <a href="{% url 'transact' %}">Add New Transaction</a><br><br>
     <form action="{% url 'home' %}" method="post">
         {% csrf_token %}
         <div class="mb-3 row">
