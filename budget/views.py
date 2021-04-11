@@ -154,10 +154,11 @@ def transact(request, t_id=None):
             transact.save()
         elif request.POST["action"] == "Delete":
             transact.delete()
-        if request.POST["action"] == "Submit":
-            return redirect("home")
-        else:
+            
+        if request.POST["action"] == "Submit & Add Another":
             return redirect("transact")
+        else:
+            return redirect("home")
     else:
         categories = Categories.objects.all().order_by("c_name")
         budget = Budget.objects.get(id=1)
